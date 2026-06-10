@@ -1,0 +1,195 @@
+---
+import TechMarquee from "./TechMarquee.astro";
+---
+
+<section class="hero">
+<div class="hero-content">
+  
+  <span class="saludo">
+    Hola! soy Aitor Santos
+  </span>
+  
+  <h1>Desarrollador
+  <span> de Software</span>
+  </h1>
+  <p> 
+  Inicio mi carrera profesional en el desarrollo aplicaciones y experiencias web modernas centradas en el rendimiento, la usabilidad con una experiencia de usuario muy cuidada.
+  </p>
+  </div>
+  <div class="hero-side">  
+    <div class="hero-image">
+      <img src="perfil.png" alt="Aitor Santos">
+    </div>
+    <div class="links-sociales">
+      <a href="https://github.com/mortir87"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Mi GitHub personal"
+      >
+        <img src="logos/github.svg" alt="Mi GitHub personal" />
+      </a>
+      <a href="https://linkedin.com/in/aitors"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+    >
+      <img src="logos/linkedin.svg" alt="LinkedIn" />
+    </a>
+  </div>  
+    <span class="local">
+    📍 Madrid, España
+  </span>
+  <span class="status">🟢 Disponible para oportunidades</span>
+  </div>
+<TechMarquee />
+</section>
+<style>
+ .local {
+    font-size: 0.9rem;
+    color: #a3a3a3;
+    margin-top: -2.5rem;
+}
+.status {
+    font-size: 0.9rem;
+    color: #a3a3a3;
+    margin-top: -1rem;
+}
+  .hero{
+    display:grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+
+    align-items: center;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-inline: 2rem;
+  }
+  .hero-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+  .hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+.hero-image img {
+  width: 320px;
+  height: 320px;
+
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #1f2937;
+  box-shadow:
+    0 0 40px rgba(125, 211, 252, 0.15);
+}
+
+.saludo {
+  display: inline-block;
+  color: #7dd3fc;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.95;
+  font-weight: 800;
+}
+h1 span {
+  display: block;
+
+  background: linear-gradient(
+    90deg,
+    #7dd3fc,
+    #38bdf8
+    
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+p {
+  max-width: 600px;
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.2;
+
+  color: #a3a3a3
+  }
+
+.links-sociales{
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+.links-sociales a {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10%;
+  border: 1px solid #2a2a2a;
+
+  background: #1B1F23;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+.links-sociales a:hover {
+  border-color: #7dd3fc;
+
+  background: #rgba(125, 211, 252, 0.08);
+}
+.links-sociales img {
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 1024px) {
+
+  .hero {
+    gap: 2rem;
+  }
+
+  .hero-image img {
+    width: 260px;
+    height: 260px;
+  }
+
+  p {
+    max-width: 100%;
+  }
+}
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .hero-image {
+    order: -1;
+  }
+    .links-sociales {
+    justify-content: center;
+  }
+}
+</style>

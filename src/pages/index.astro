@@ -1,0 +1,218 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Proyectos from "../components/ProyectosSection.astro";
+import Contacto from "../components/ContactoSection.astro";
+---
+
+<Layout>
+  <main class="page">
+    <nav class="hero-nav">
+      <a href="#hero" data-link="hero">Inicio</a>
+      <a href="#proyectos" data-link="proyectos">Proyectos</a>
+      <a href="#contacto" data-link="contacto">Contacto</a>  
+    </nav>
+    <section class="section hero" id="hero">
+      <div class="content">
+      <Hero />
+      </div>
+    </section>
+    <section class="section proyectos" id="proyectos">
+      <div class="content">   
+      <Proyectos />
+      </div>
+    </section >
+    <section class="section contacto" id="contacto">
+      <div class="content">
+        <Contacto />
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+   .hero-nav {
+  position: fixed;
+  top: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 0.75rem;
+
+  padding: 0.75rem 1rem;
+
+  border: 1px solid #2a2a2a;
+  border-radius: 999px;
+
+  background: rgba(15, 15, 15, 0.7);
+  backdrop-filter: blur(12px);
+
+  z-index: 999;
+}
+ .hero-nav a {
+  position: relative;
+  overflow: hidden;
+
+  color: #d4d4d4;
+  text-decoration: none;
+  font-weight: 500;
+
+  padding: 0.55rem 1.2rem;
+
+  border: 1px solid #2a2a2a;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.02);
+
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+  .hero-nav a::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  /*background: linear-gradient(90deg, #0ea5e9, #38bdf8);*/
+  background: linear-gradient(
+  90deg,
+  rgba(125,211,252,.08),
+  rgba(56,189,248,.18)
+);
+
+  transform: translateX(-100%);
+  transition: transform 0.35s ease;
+
+  z-index: -1;
+}
+
+.hero-nav a:hover::before {
+  transform: translateX(0);
+}
+
+.hero-nav a:hover {
+  color: #d4d4d4;
+  border-color: #38bdf8;
+}
+.hero-nav a.active {
+  color: #ffffff;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.25);
+}
+
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+  .page {
+	  height: 100vh;
+	  overflow-y: scroll;
+    overflow-x: hidden;
+	  scroll-snap-type: y mandatory;
+	}
+	.section {
+		min-height: 100vh;
+		scroll-snap-align: start;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+        
+	}
+  .content {
+  opacity: 0;
+
+  transform: translateX(120px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+
+}
+
+.content.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.content.leaving {
+  opacity: 0;
+  transform: translateX(-0px);
+  filter: blur(10px);
+}
+
+
+
+.hero {
+  background: 
+    radial-gradient(circle at center,#111827,#0b0b0f);
+}
+
+.proyectos {
+  padding-top: 2rem;
+  background:
+    radial-gradient(circle at center,
+    #111827,
+    #0b0b0f);
+}
+
+.contacto {
+  background:
+    radial-gradient(circle at center ,
+    #111827,
+    #0b0b0f);
+}
+</style>
+<script>
+  const sections = document.querySelectorAll(".section");
+  const links = document.querySelectorAll(".hero-nav a");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const section = entry.target;
+
+      //content
+        const content = section.querySelector(".content");
+        if (content) {
+
+  if (entry.isIntersecting) {
+
+    content.classList.remove("leaving");
+
+    content.classList.add("visible");
+
+  } else {
+
+    content.classList.remove("visible");
+
+    content.classList.add("leaving");
+
+  }
+}
+
+      //nav
+
+        if (entry.isIntersecting) {
+          const id = section.id;
+
+          links.forEach((link) => {
+            link.classList.toggle(
+              "active",
+              link.getAttribute("href") === `#${id}`
+            );
+          });
+        }
+      });
+    },
+    {
+      threshold: 0.55,
+    }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+</script>

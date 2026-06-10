@@ -1,0 +1,591 @@
+<section class="contacto">
+
+  <div class="contacto-grid">
+
+    <div class="contacto-photo">
+      <img src="/contact.png" alt="Aitor Santos trabajando" />
+    </div>
+
+    <div class="contacto-content">
+
+      <h2>
+        Mi siguiente proyecto
+        <span>todavía no tiene nombre.</span>
+      </h2>
+
+      <p>
+        Quizá sea juntos, 
+        <button type="button" class="gancho" id="abrirContacto"> ¿Hablamos? </button>
+      </p>
+
+      <form class="contacto-form" id="contactoForm">
+
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Tu nombre"
+          required
+        />
+        
+        <input
+          type="email"
+          name="email"
+          placeholder="Tu email"
+          required
+        />
+
+        <div class="textarea-group">
+          <textarea
+            name="mensaje"
+            placeholder="Cuéntame tu idea..."
+            rows="5"
+            maxlength="3000"
+            required
+          ></textarea>
+          <span id="contadorletras" class="contador-letras">0 / 3000</span>
+        </div>
+
+        <button type="submit" id="submitBtn">
+          <span class="btn-text">Enviar mensaje</span>
+          <span class="btn-loader" aria-hidden="true"></span>
+        </button>
+
+        <p id="contactStatus"></p>
+
+      </form>
+
+    </div>
+  </div>
+
+  <footer class="portfolio-footer">
+  <button class="like-btn" id="likeBtn" aria-label="Love">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      width="18"
+      height="18"
+    >
+      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
+    </svg>
+    <span id="likesCount">0</span><span id="Likes"> Likes </span>
+  </button>
+
+  <p class="tech-stack-text">
+    Construido con <span class="tech-highlight">Astro</span>, 
+    desplegado en <span class="tech-highlight">Vercel</span> 
+    y diseñado con <span class="tech-highlight">CSS</span> & <span class="tech-highlight">TypeScript</span>.
+  </p>
+
+  <p class="copyright">
+        © 2026 Aitor Santos. Creado con amor. <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        width="11"
+        height="11"
+      >
+        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/>
+      </svg>
+    </p>
+  </footer>
+
+</section>
+
+<style>
+  .contacto-form {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    transition:
+      max-height .4s ease,
+      opacity .3s ease;
+    pointer-events: none;
+  }
+
+  .contacto-form.open {
+    max-height: 600px; 
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .contacto-form input {
+    width: 92%;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 1rem;
+    color: white;
+    font: inherit;
+  }
+
+  /* textarea y contador */
+  .textarea-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 92%;
+  }
+
+  .textarea-group textarea {
+    width: 100%;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 1rem;
+    color: white;
+    font: inherit;
+    resize: none; 
+  }
+  .contador-letras {
+    align-self: flex-end; 
+    font-size: 0.75rem;
+    color: #666;
+    transition: color 0.2s ease;
+    padding-right: 0.2rem;
+  }
+
+  /*alertas contador */
+  .contador-letras.warning {
+    color: #f59e0b; /* Naranja */
+  }
+
+  .contador-letras.danger {
+    color: #ef4444; /* Rojo */
+  }
+
+  .contacto-form input:focus,
+  .contacto-form textarea:focus {
+    outline: none;
+    border-color: #38bdf8;
+  }
+
+  .contacto-form button {
+    position: relative;
+    overflow: hidden;
+    align-self: center;
+    padding: .9rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid #38bdf8;
+    background: transparent;
+    color: #d4d4d4;
+    cursor: pointer;
+    transition:
+      color .25s ease,
+      border-color .25s ease;
+  }
+
+  .contacto-form button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(125,211,252,.08),
+      rgba(56,189,248,.18)
+    );
+    transform: translateX(-100%);
+    transition: transform .35s ease;
+    z-index: -1;
+  }
+
+  .contacto-form button:hover::before {
+    transform: translateX(0);
+  }
+
+  .contacto-form button:hover {
+    color: white;
+  }
+
+  .btn-loader {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-top-color: #38bdf8;
+    border-radius: 50%;
+    display: none;
+    animation: spin .8s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .contacto-form button.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .contacto-form button.loading .btn-loader {
+    display: inline-block;
+  }
+
+  .contacto-form button.loading .btn-text {
+    display: none;
+  }
+
+  #contactStatus {
+    margin-top: 1rem;
+    font-size: .9rem;
+    color: #a3a3a3;
+    text-align: center;
+  }
+
+  /*.like-btn {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    padding: .9rem .9rem;
+    margin: 0 auto;
+    background: transparent;
+    border: 1px solid #2a2a2a;
+    border-radius: 999px;
+    color: #8a8a8a;
+    cursor: pointer;
+    transition: all .25s ease;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+
+  .like-btn:hover {
+    border-color: #38bdf8;
+    color: #d4d4d4;
+    transform: translateY(-1px);
+  }
+
+  .like-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .like-btn:hover svg {
+    color: #38bdf8;
+    fill: #38bdf8;
+  }*/
+
+  .gancho {
+    border: none;
+    padding: 0;
+    display: inline-block;
+    margin-left: 0.3rem;
+    font-weight: 600;
+    color: #38bdf8;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 2.3rem;
+    background: linear-gradient(90deg, #ffffff, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gancho::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #ffffff, #38bdf8);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
+  .gancho:hover {
+    transform: translateY(-1px);
+  }
+
+  .gancho:hover::after {
+    transform: scaleX(1);
+  }
+
+  .contacto {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contacto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    padding-inline: 2rem;
+    margin: 0 auto;
+    flex: 1;
+  }
+
+  .contacto-photo img {
+    width: 100%;
+    opacity: 75%;
+    max-width: 400px;
+    border-radius: 24px;
+    object-fit: cover;
+    filter: grayscale(100%);
+  }
+
+  .contacto-content h2 {
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: .95;
+    margin: 0;
+  }
+
+  .contacto-content h2 span {
+    display: block;
+    background: linear-gradient(90deg, #7dd3fc, #38bdf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .contacto-content p {
+    font-size: 1.3rem;
+    color: #a3a3a3;
+    margin-top: 1.5rem;
+  }
+
+  /*footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #2a2a2a;
+    color: #666;
+    text-align: center;
+  }*/
+  .portfolio-footer {
+  margin-top: 4rem;
+  padding-block: 2rem 1.5rem;
+  border-top: 1px solid #2a2a2a;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem; 
+}
+
+.like-btn {
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .7rem .7rem;
+  background: transparent;
+  border: 1px solid #2a2a2a;
+  border-radius: 999px;
+  color: #8a8a8a;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.like-btn:hover {
+  border-color: #38bdf8;
+  color: #d4d4d4;
+  transform: translateY(-1px);
+}
+
+.like-btn svg { width: 18px; height: 18px; }
+.like-btn:hover svg { color: #38bdf8; fill: #38bdf8; }
+
+
+.tech-stack-text {
+  font-size: 0.9rem;
+  color: #666; /* mas oscuro */
+  margin: 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.tech-highlight {
+  color: #888;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.tech-highlight:hover {
+  color: #38bdf8;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  color: #444;
+  margin: 0;
+  text-align: center;
+}
+
+
+  @media (max-width: 768px) {
+    .contacto-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 0rem;
+      padding: 2rem 1.5rem;
+    }
+
+    .contacto-photo {
+      order: 1;
+      margin-top: 3rem;    
+    }
+
+    .contacto-content {
+      order: 2;
+    }
+
+    .contacto-content h2 {
+      font-size: clamp(2.3rem, 9vw, 3.5rem);
+      line-height: 1;
+    }
+
+    .contacto-photo img {
+      width: 90%;
+      max-width: 360px;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const trigger = document.getElementById("abrirContacto");
+  const form = document.getElementById("contactoForm") as HTMLFormElement | null;
+  const submitBtn = document.getElementById("submitBtn") as HTMLButtonElement;
+  const status = document.getElementById("contactStatus");
+
+  // Contador de letras
+  const textarea = form?.querySelector('textarea[name="mensaje"]') as HTMLTextAreaElement;
+  const charCounter = document.getElementById("contadorletras");
+  const maxLength = 3000;
+
+  textarea?.addEventListener("input", () => {
+    const currentLength = textarea.value.length;
+    
+    if (charCounter) {
+      charCounter.textContent = `${currentLength} / ${maxLength}`;
+      
+      // Control de colores segun la longitud
+      if (currentLength >= maxLength) {
+        charCounter.className = "contador-letras danger";
+      } else if (currentLength >= maxLength - 200) {
+        charCounter.className = "contador-letras warning";
+      } else {
+        charCounter.className = "contador-letras";
+      }
+    }
+  });
+
+  // Mostrar - Ocultar Formulario
+  trigger?.addEventListener("click", () => {
+    form?.classList.toggle("open");
+  });
+
+  // Envio 
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    submitBtn.classList.add("loading");
+    submitBtn.disabled = true;
+
+    if (status) {
+      status.textContent = "Enviando mensaje...";
+      status.style.color = "#a3a3a3";
+    }
+
+    const formData = new FormData(form);
+    const nombre = formData.get("nombre");
+    const mensaje = formData.get("mensaje");
+    const email = formData.get("email");
+
+    try {
+      const res = await fetch("/api/contacto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nombre, email, mensaje }),
+      });
+
+      if (!res.ok) throw new Error("Error");
+
+      form.reset();
+      
+      // Reset
+      if (charCounter) {
+        charCounter.textContent = `0 / ${maxLength}`;
+        charCounter.className = "contador-letras";
+      }
+
+      if (status) {
+        status.textContent = "Mensaje enviado ✔";
+        status.style.color = "#38bdf8";
+      }
+    } catch (err) {
+      if (status) {
+        status.textContent = "Error al enviar. Intenta de nuevo.";
+        status.style.color = "#ef4444";
+      }
+    } finally {
+      submitBtn.classList.remove("loading");
+      submitBtn.disabled = false;
+    }
+  });  
+
+  // Likes
+  const likeBtn = document.getElementById("likeBtn");
+  const likesCount = document.getElementById("likesCount");
+
+  if (!likeBtn || !likesCount) return;
+
+  const likeBtnEl = likeBtn;
+  const likesCountEl = likesCount;
+
+  async function loadLikes() {
+    try {
+      const res = await fetch("/api/likes");
+      const data = await res.json();
+
+      likesCountEl.textContent = String(data.likes ?? 0);
+
+      if (localStorage.getItem("portfolio-liked")) {
+        likeBtnEl.classList.add("liked");
+      }
+    } catch (error) {
+      console.error("Error cargando likes:", error);
+    }
+  }
+
+  async function like() {
+    if (localStorage.getItem("portfolio-liked")) return;
+
+    try {
+      const res = await fetch("/api/like", {
+        method: "POST",
+      });
+
+      const data = await res.json();
+      likesCountEl.textContent = String(data.likes ?? 0);
+      localStorage.setItem("portfolio-liked", "true");
+      likeBtnEl.classList.add("liked");
+    } catch (error) {
+      console.error("Error enviando like:", error);
+    }
+  }
+
+  likeBtnEl.addEventListener("click", like);
+  loadLikes();
+});
+</script>

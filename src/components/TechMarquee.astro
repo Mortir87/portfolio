@@ -1,0 +1,135 @@
+---
+const tecnologias = [
+{
+    nombre: "Java 17",
+    logo:"/logos/java.svg"
+},
+{
+    nombre: "Spring Boot",
+    logo: "/logos/springboot.svg"
+  },
+  
+{
+    nombre: "Python 3.14",
+    logo: "/logos/python.svg"
+  },
+{
+    nombre: "Android Studio",
+    logo: "/logos/android.svg"
+  },
+  {
+    nombre: "HTML5",
+    logo: "/logos/html.svg"
+  },
+  {
+    nombre: "CSS3",
+    logo: "/logos/css3.svg"
+  },
+  {
+    nombre: "JavaScript",
+    logo: "/logos/javascript.svg"
+  },
+  {
+    nombre: "Astro",
+    logo: "/logos/astro.svg"
+  },
+  {
+    nombre: "Docker",
+    logo: "/logos/docker.svg"
+  },
+  {
+    nombre: "Git",
+    logo: "/logos/git.svg"
+  },
+  {
+    nombre: "MySQL 8.0",
+    logo: "/logos/mysql.svg"
+  },
+  {
+    nombre: "Postman",
+    logo: "/logos/postman.svg"
+  }
+
+]
+
+//duplicamos para bucle infinito
+const loop = [...tecnologias, ...tecnologias]
+---
+<div class="tech-marquee">
+    <div class="tech-track">
+         {loop.map((tech) => (
+      <div class="tech-item">
+        <img src={tech.logo} alt={tech.nombre} />
+        <span>{tech.nombre}</span>
+      </div>
+    ))}
+    </div>
+</div>
+
+<style>
+    .tech-marquee {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        margin-top: 2rem;
+        grid-column: 1 / -1;
+            
+    }
+    .tech-track{
+        display: flex;
+        gap: .51rem;
+        width: max-content;
+        animation: scroll 45s linear infinite;
+        will-change: transform;
+    }
+    .tech-item {
+        display: flex;
+        align-items: center;
+        gap: .3rem;
+        padding: .65rem 1rem;
+        white-space: nowrap;
+        opacity: .65;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease;
+    }
+
+    .tech-item:hover{
+      opacity: 1;
+      transform: translateY(-2px) scale(1.08); 
+    }
+
+    .tech-item img {
+        width: 26px;
+        height: 26px;
+        
+    }
+    .tech-item span {
+        font-size: 1.1rem;
+        color: #a3a3a3;
+    }
+    .tech-track:hover {
+        animation-play-state: paused;
+    }
+
+    .tech-marquee::before,
+    .tech-marquee::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 80px;
+        height: 100%;
+        z-index: 2;
+    }
+
+    
+    @keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+</style>

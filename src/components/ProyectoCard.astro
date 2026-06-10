@@ -1,0 +1,144 @@
+---
+type Props = {
+  title: string;
+  description: string;
+  tech: string[];
+  link: string;
+  image: string;
+};
+
+const  { title, description, tech, link, image} = Astro.props as Props;
+
+---
+
+<article class="card">
+  <a href={link} class="card-link" target="_blank" rel="noopener noreferrer" aria-label={`Ver proyecto ${title}`}>
+    
+    <div class="image-container">
+      <img src={image} alt={title} class="project-img" loading="lazy" />
+      <div class="overlay"></div>
+    </div>
+
+    <div class="content">
+      <div class="text-group">
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </div>
+
+      <ul class="tech-list">
+        {tech.map((t) => (
+          <li>{t}</li>
+        ))}
+      </ul>
+    </div>
+
+  </a>
+</article>
+
+<style>.card {
+  background: #121217; /* Fondo oscuro profundo */
+  border: 1px solid rgba(255, 255, 255, 0.04); /* Borde casi imperceptible */
+  border-radius: 22px; /* Esquinas redondeadas estilo hardware de Apple */
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  transition: border-color 0.5s rgba(255, 255, 255, 0.04), background 0.5s ease;
+}
+
+
+.card-link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+}
+
+.image-container {
+  position: relative;
+  height: 220px;
+  width: 100%;
+  overflow: hidden;
+  background: #1c1c24;
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Curva cubic-bezier oficial de Apple para animaciones de interfaz (efecto muelle suave) */
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(18, 18, 23, 0.8));
+  transition: opacity 0.5s ease;
+}
+.content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  background: #121217;
+  transition: background 0.5s ease;
+}
+
+h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.4rem 0;
+  color: #f5f5f7; /* Blanco Apple */
+  transition: color 0.3s ease;
+}
+
+p {
+  font-size: 0.95rem;
+  line-height: 1.47; /* Interlineado exacto de SF Pro */
+  color: #86868b; /* Gris secundario de Apple */
+  margin: 0 0 1.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.tech-list li {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 8px; /* Menos redondeado para las etiquetas */
+  background: rgba(255, 255, 255, 0.05);
+  color: #86868b;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  transition: all 0.3s ease;
+}
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: #16161c;
+}
+.card:hover .project-img {
+  transform: scale(1.04);
+}
+
+.card:hover h3 {
+  color: #ffffff;
+}
+.card:hover p {
+  color: #e8e8ed;
+}
+.card:hover .tech-list li {
+  background: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.2);
+}
+</style>
