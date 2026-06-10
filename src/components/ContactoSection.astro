@@ -504,48 +504,67 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });  
 
-  // Likes
-  const likeBtn = document.getElementById("likeBtn");
-  const likesCount = document.getElementById("likesCount");
+// Likes
+const likeBtn = document.getElementById("likeBtn") as HTMLButtonElement | null;
+const likesCount = document.getElementById("likesCount");
 
-  if (!likeBtn || !likesCount) return;
+if (!likeBtn || !likesCount) return;
 
-  const likeBtnEl = likeBtn;
-  const likesCountEl = likesCount;
+const likeBtnEl = likeBtn;
+const likesCountEl = likesCount;
 
-  async function loadLikes() {
-    try {
-      const res = await fetch("/api/likes");
-      const data = await res.json();
+let isLiking = false;
 
-      likesCountEl.textContent = String(data.likes ?? 0);
+async function loadLikes() {
+  try {
+    const res = await fetch("/api/likes");
 
-      if (localStorage.getItem("portfolio-liked")) {
-        likeBtnEl.classList.add("liked");
-      }
-    } catch (error) {
-      console.error("Error cargando likes:", error);
-    }
-  }
+    if (!res.ok) throw new Error("Failed to load likes");
 
-  async function like() {
-    if (localStorage.getItem("portfolio-liked")) return;
+    const data = await res.json();
 
-    try {
-      const res = await fetch("/api/like", {
-        method: "POST",
-      });
+    likesCountEl.textContent = String(data.likes ?? 0);
 
-      const data = await res.json();
-      likesCountEl.textContent = String(data.likes ?? 0);
-      localStorage.setItem("portfolio-liked", "true");
+    if (localStorage.getItem("portfolio-liked")) {
       likeBtnEl.classList.add("liked");
-    } catch (error) {
-      console.error("Error enviando like:", error);
     }
+  } catch (error) {
+    console.error("Error cargando likes:", error);
   }
+}
 
-  likeBtnEl.addEventListener("click", like);
-  loadLikes();
+async function like() {
+  if (isLiking) return;
+  if (localStorage.getItem("portfolio-liked")) return;
+
+  isLiking = true;
+
+  try {
+    likeBtnEl.disabled = true;
+
+    const res = await fetch("/api/like", {
+      method: "POST",
+    });
+
+    if (!res.ok) {
+      throw new Error(`Request failed: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    likesCountEl.textContent = String(data.likes ?? 0);
+
+    localStorage.setItem("portfolio-liked", "true");
+    likeBtnEl.classList.add("liked");
+
+  } catch (error) {
+    console.error("Error enviando like:", error);
+  } finally {
+    isLiking = false;
+  }
+}
+
+likeBtnEl.addEventListener("click", like);
+loadLikes();
 });
 </script>
