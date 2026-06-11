@@ -2,7 +2,7 @@
 import TechMarquee from "./TechMarquee.astro";
 ---
 
-<section class="hero">
+<div class="hero">
 <div class="hero-content">
   
   <span class="saludo">
@@ -42,7 +42,7 @@ import TechMarquee from "./TechMarquee.astro";
   <span class="status">🟢 Disponible para oportunidades</span>
   </div>
 <TechMarquee />
-</section>
+</div>
 <style>
  .local {
     font-size: 0.9rem;
@@ -182,14 +182,27 @@ p {
 
   .hero {
     grid-template-columns: 1fr;
-    padding: 1rem;
+    gap: 1rem;
+    padding: 5rem 1rem 2rem;
   }
 
   .hero-image {
     order: -1;
+    
   }
+  .hero-image img {
+    width: 180px;
+    height: 180px;
+}
     .links-sociales {
     justify-content: center;
   }
+  h1 {
+  font-size: 2.8rem;
+}
+p {
+  font-size: 1rem;
+}
+
 }
 </style>

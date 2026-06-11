@@ -1,4 +1,4 @@
-<section class="contacto">
+<div class="contacto">
 
   <div class="contacto-grid">
 
@@ -96,7 +96,7 @@
     </p>
   </footer>
 
-</section>
+</div>
 
 <style>
   .contacto-form {
@@ -114,7 +114,7 @@
   }
 
   .contacto-form.open {
-    max-height: 600px; 
+    max-height: 900px; 
     opacity: 1;
     pointer-events: auto;
   }
@@ -129,7 +129,6 @@
     font: inherit;
   }
 
-  /* textarea y contador */
   .textarea-group {
     display: flex;
     flex-direction: column;
@@ -155,13 +154,12 @@
     padding-right: 0.2rem;
   }
 
-  /*alertas contador */
-  .contador-letras.warning {
-    color: #f59e0b; /* Naranja */
+    .contador-letras.warning {
+    color: #f59e0b; 
   }
 
   .contador-letras.danger {
-    color: #ef4444; /* Rojo */
+    color: #ef4444; 
   }
 
   .contacto-form input:focus,
@@ -281,7 +279,7 @@
   }
 
   .contacto {
-    min-height: 100vh;
+    
     display: flex;
     flex-direction: column;
   }
@@ -372,7 +370,7 @@
 
 .tech-stack-text {
   font-size: 0.9rem;
-  color: #666; /* mas oscuro */
+  color: #666; /* mas oscuro que los otros text*/
   margin: 0;
   text-align: center;
   line-height: 1.5;
@@ -423,6 +421,12 @@
       max-width: 360px;
       margin: 0 auto;
       display: block;
+    }
+    .contacto-content p{
+      font-size:1rem;
+    }
+    .gancho{
+      font-size:1.6rem;
     }
   }
 </style>
@@ -517,7 +521,7 @@ const likeBtn = document.getElementById("likeBtn") as HTMLButtonElement | null;
 const likesCount = document.getElementById("likesCount");
 const likesLabelEl = document.getElementById("likesLabel");
 if (likesLabelEl) {
-  likesLabelEl.textContent = " It's Loved"; 
+  likesLabelEl.textContent = " Likes"; 
 }
 
 if (likeBtn && likesCount) {

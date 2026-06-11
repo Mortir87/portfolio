@@ -5,7 +5,7 @@ import { proyectos } from "../data/proyectos.js";
 const {title = "Proyectos"} = Astro.props;
 ---
 
-<section id="proyectos" class="proyectos">
+<div class="proyectos">
     <h2>{title}</h2>
     <div class="grid">
         {proyectos.map((proyecto) => (
@@ -18,7 +18,7 @@ const {title = "Proyectos"} = Astro.props;
         />
     ))}
     </div>
-</section>
+</div>
 
 <style>
   .proyectos {

@@ -77,7 +77,6 @@ import Contacto from "../components/ContactoSection.astro";
   position: absolute;
   inset: 0;
 
-  /*background: linear-gradient(90deg, #0ea5e9, #38bdf8);*/
   background: linear-gradient(
   90deg,
   rgba(125,211,252,.08),
@@ -111,13 +110,13 @@ import Contacto from "../components/ContactoSection.astro";
     padding: 4rem 2rem;
   }
   .page {
-	  height: 100vh;
+	  height: 100dvh;
 	  overflow-y: scroll;
     overflow-x: hidden;
 	  scroll-snap-type: y mandatory;
 	}
 	.section {
-		min-height: 100vh;
+		min-height: 100dvh;
 		scroll-snap-align: start;
 		display: flex;
 		align-items: center;
@@ -165,6 +164,40 @@ import Contacto from "../components/ContactoSection.astro";
     radial-gradient(circle at center ,
     #111827,
     #0b0b0f);
+}
+@media (max-width: 768px) {
+  .page {
+    height: auto;
+    overflow-y: auto;
+    scroll-snap-type: none;
+  }
+
+  .section {
+    min-height: auto;
+  }
+.hero-nav{
+  top: .75rem;
+  padding: .45rem .7rem;
+  gap: .4rem;
+
+}
+
+.hero-nav a{
+  padding: .45rem .8rem;
+  font-size: .85rem;
+}
+
+}
+@media (max-width:768px){
+.page{
+  height:auto;
+  overflow-y:auto;
+  scroll-snap-type:none;
+}
+.section{
+  min-height:auto;
+}
+
 }
 </style>
 <script>
